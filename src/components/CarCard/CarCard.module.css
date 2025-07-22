@@ -14,13 +14,18 @@
 
 .imageWrapper {
   position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2; /* або 4 / 3 – залежить від макета */
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f9fafb; /* запаска на випадок повільного img */
 }
 
 .image {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  display: block;
 }
 
 .favoriteBtn {
@@ -40,7 +45,6 @@
   margin-top: 12px;
 }
 
-/* Назва + ціна в ряд */
 .titleRow {
   display: flex;
   justify-content: space-between;
@@ -60,7 +64,6 @@
   font-weight: 500;
 }
 
-/* Ціна */
 .price {
   font-size: 18px;
   font-weight: 600;

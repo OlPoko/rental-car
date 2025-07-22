@@ -1,6 +1,7 @@
 // src/components/Filters/Filters.jsx
 import { useState } from "react";
 import styles from "./Filters.module.css";
+import { toast } from "react-toastify";
 
 const brands = ["BMW", "Audi", "Buick", "Subaru", "Volvo"];
 const prices = [30, 40, 50, 60, 70, 80];
@@ -17,16 +18,52 @@ const Filters = ({ onApply }) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (Number(filters.mileageFrom) < 0 || Number(filters.mileageTo) < 0) {
-      alert("Mileage cannot be negative.");
+    const from = filters.mileageFrom.trim();
+    const to = filters.mileageTo.trim();
+
+    const cleaned = {
+      ...filters,
+      mileageFrom: from === "" ? "" : Number(from),
+      mileageTo: to === "" ? "" : Number(to),
+    };
+
+    if (
+      (cleaned.mileageFrom !== "" && isNaN(cleaned.mileageFrom)) ||
+      (cleaned.mileageTo !== "" && isNaN(cleaned.mileageTo))
+    ) {
+      toast.error("Mileage must be a number");
       return;
     }
 
-    onApply(filters);
+    if (
+      (cleaned.mileageFrom !== "" && cleaned.mileageFrom < 0) ||
+      (cleaned.mileageTo !== "" && cleaned.mileageTo < 0)
+    ) {
+      toast.error("Mileage cannot be negative");
+      return;
+    }
+
+    onApply(cleaned);
+  };
+
+  const handleReset = () => {
+    const initialState = {
+      brand: "",
+      rentalPrice: "",
+      mileageFrom: "",
+      mileageTo: "",
+    };
+
+    setFilters(initialState);
+    onApply(initialState);
+    toast.info("Filters have been reset", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: true,
+    });
   };
 
   return (
@@ -35,7 +72,7 @@ const Filters = ({ onApply }) => {
         <label className={styles.label}>Car brand</label>
         <select
           name="brand"
-          value={filters.make}
+          value={filters.brand}
           onChange={handleChange}
           className={styles.select}
         >
@@ -89,9 +126,18 @@ const Filters = ({ onApply }) => {
         </div>
       </div>
 
-      <button type="submit" className={styles.button}>
-        Search
-      </button>
+      <div className={styles.buttons}>
+        <button type="submit" className={styles.button}>
+          Search
+        </button>
+        <button
+          type="button"
+          className={styles.resetButton}
+          onClick={handleReset}
+        >
+          Reset
+        </button>
+      </div>
     </form>
   );
 };

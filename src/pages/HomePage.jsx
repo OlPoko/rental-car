@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.css";
-import heroBg from "../assets/Picture@2x.jpg";
+import heroBg from "../assets/Picture@2x.webp";
 
 const HomePage = () => {
   const navigate = useNavigate();

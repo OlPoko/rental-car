@@ -1,8 +1,6 @@
-// src/redux/cars/carsSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Thunk: отримує авто з урахуванням фільтрів + сторінки
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
   async (params = {}, thunkAPI) => {
@@ -32,6 +30,7 @@ const carsSlice = createSlice({
     totalPages: 1,
     currentPage: 0,
     hasMore: true,
+    isLoadingMore: false,
   },
   reducers: {
     resetCars: (state) => {
