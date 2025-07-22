@@ -1,0 +1,95 @@
+/* === HEADER — full-width, background-colored === */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #1e293b;
+  color: white;
+  width: 100%;
+}
+
+/* === INNER CONTAINER — fixed max-width === */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* === Logo === */
+.logo {
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.logo span {
+  color: #3b82f6;
+}
+
+/* === Nav & Burger — same as before === */
+.nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100vh;
+  width: 250px;
+  background-color: #1e293b;
+  padding: 100px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition: right 0.3s ease;
+}
+
+.openNav {
+  right: 0;
+}
+
+.nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.nav a:hover {
+  color: #3b82f6;
+}
+
+.active {
+  color: #3b82f6;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.burger {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* === Media: DESKTOP ≥ 1440px === */
+@media (min-width: 1440px) {
+  .container {
+    padding: 16px 40px;
+  }
+
+  .nav {
+    position: static;
+    flex-direction: row;
+    height: auto;
+    width: auto;
+    padding: 0;
+    gap: 40px;
+  }
+
+  .burger {
+    display: none;
+  }
+}
