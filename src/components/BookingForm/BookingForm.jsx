@@ -5,8 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./BookingForm.module.css";
 import { useRef, useEffect } from "react";
 
-const phoneRegExp = /^\+?[0-9\s\-()]{7,20}$/;
-
 const BookingForm = ({ carName }) => {
   const inputRef = useRef(null);
 
@@ -17,19 +15,57 @@ const BookingForm = ({ carName }) => {
   const initialValues = {
     name: "",
     email: "",
-    phone: "",
+    dateFrom: "",
+    dateTo: "",
+    comment: "",
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().min(2, "Too short").required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    phone: Yup.string()
-      .matches(phoneRegExp, "Invalid phone")
+    name: Yup.string()
+      .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄґҐ\s'-]+$/, "Invalid name")
+      .min(2, "Too short")
       .required("Required"),
+
+    email: Yup.string().email("Invalid email").required("Required"),
+
+    dateFrom: Yup.string()
+      .required("Required")
+      .test(
+        "valid",
+        "Invalid date",
+        (value) => !value || !isNaN(Date.parse(value))
+      )
+      .test("notPast", "Date cannot be in the past", (value) => {
+        if (!value) return true;
+        const date = new Date(value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return date >= today;
+      }),
+
+    dateTo: Yup.string()
+      .required("Required")
+      .test(
+        "valid",
+        "Invalid date",
+        (value) => !value || !isNaN(Date.parse(value))
+      )
+      .when("dateFrom", (dateFrom, schema) =>
+        schema.test(
+          "afterStart",
+          "Must be after start date",
+          function (dateTo) {
+            if (!dateFrom || !dateTo) return true;
+            return new Date(dateTo) >= new Date(dateFrom);
+          }
+        )
+      ),
+
+    comment: Yup.string().max(300, "Max 300 characters"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
-    toast.success(`🚗 You successfully booked ${carName}!`, {
+    toast.success(`🚗 You successfully booked ${carName || "a car"}!`, {
       position: "top-center",
       autoClose: 3000,
     });
@@ -38,7 +74,11 @@ const BookingForm = ({ carName }) => {
 
   return (
     <div className={styles.wrapper}>
-      <h3>Book this car</h3>
+      <h3 className={styles.title}>Book your car now</h3>
+      <p className={styles.subtitle}>
+        Stay connected! We are always ready to help you.
+      </p>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -51,7 +91,7 @@ const BookingForm = ({ carName }) => {
             <Field
               innerRef={inputRef}
               name="name"
-              placeholder="Your name"
+              placeholder="Name*"
               className={styles.input}
             />
             <ErrorMessage
@@ -65,7 +105,7 @@ const BookingForm = ({ carName }) => {
             <Field
               name="email"
               type="email"
-              placeholder="Email"
+              placeholder="Email*"
               className={styles.input}
             />
             <ErrorMessage
@@ -75,24 +115,57 @@ const BookingForm = ({ carName }) => {
             />
           </div>
 
+          <div className={styles.dateRangeWrapper}>
+            <div className={styles.dateField}>
+              <label className={styles.dateLabel} htmlFor="dateFrom">
+                From
+              </label>
+              <Field
+                id="dateFrom"
+                name="dateFrom"
+                type="date"
+                className={styles.input}
+              />
+              <ErrorMessage
+                name="dateFrom"
+                component="div"
+                className={styles.error}
+              />
+            </div>
+
+            <div className={styles.dateField}>
+              <label className={styles.dateLabel} htmlFor="dateTo">
+                To
+              </label>
+              <Field
+                id="dateTo"
+                name="dateTo"
+                type="date"
+                className={styles.input}
+              />
+              <ErrorMessage
+                name="dateTo"
+                component="div"
+                className={styles.error}
+              />
+            </div>
+          </div>
+
           <div className={styles.inputGroup}>
             <Field
-              name="phone"
-              placeholder="Phone number"
-              className={styles.input}
-            />
-            <ErrorMessage
-              name="phone"
-              component="div"
-              className={styles.error}
+              name="comment"
+              as="textarea"
+              placeholder="Comment"
+              className={`${styles.input} ${styles.textarea}`}
             />
           </div>
 
           <button type="submit" className={styles.button}>
-            Book Now
+            Send
           </button>
         </Form>
       </Formik>
+
       <ToastContainer />
     </div>
   );
