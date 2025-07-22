@@ -1,12 +1,21 @@
-# React + Vite
+# Rental Car
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend частина веб-додатку для оренди авто.  
+Реалізовано на React + Redux + React Router + Axios + CSS Modules.
 
-Currently, two official plugins are available:
+## Функціонал
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Перегляд усіх авто
+- Фільтрація за брендом, ціною, пробігом
+- Сторінка деталей авто
+- Форма оренди з валідацією
+- Додавання до обраного
+- Пагінація (бекенд)
+- Loader при запитах
 
-## Expanding the ESLint configuration
+## Як запустити
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
