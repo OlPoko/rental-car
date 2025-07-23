@@ -1,0 +1,23 @@
+.page {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.empty {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}

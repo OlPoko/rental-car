@@ -34,6 +34,9 @@ const Header = () => {
           >
             Catalog
           </NavLink>
+          <NavLink to="/favorites" className={styles.navLink}>
+            Favorites
+          </NavLink>
         </nav>
 
         <button className={styles.burger} onClick={toggleMenu}>

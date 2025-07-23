@@ -6,11 +6,12 @@ export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
   async (params = {}, thunkAPI) => {
     console.log("=== FETCH CARS STARTED ===", params);
-
     try {
       const response = await axios.get(
         "https://car-rental-api.goit.global/cars",
-        { params }
+        {
+          params,
+        }
       );
       const { cars, totalPages } = response.data;
       console.log("✅ FETCH CARS SUCCESS:", cars.length, "cars");
@@ -27,7 +28,6 @@ export const fetchCarById = createAsyncThunk(
   "cars/fetchCarById",
   async (id, thunkAPI) => {
     console.log("=== FETCH CAR BY ID STARTED ===", id);
-
     try {
       const response = await axios.get(
         `https://car-rental-api.goit.global/cars/${id}`
@@ -56,6 +56,9 @@ const carsSlice = createSlice({
     selectedCar: null,
     selectedCarLoading: false,
     selectedCarError: null,
+
+    // 🔹 Стан для обраного
+    favorites: JSON.parse(localStorage.getItem("favorites")) || [],
   },
   reducers: {
     resetCars: (state) => {
@@ -68,6 +71,24 @@ const carsSlice = createSlice({
       state.selectedCar = null;
       state.selectedCarError = null;
       state.selectedCarLoading = false;
+    },
+    addToFavorites: (state, action) => {
+      const car = action.payload;
+      const exists = state.favorites.some((item) => item.id === car.id);
+      if (!exists) {
+        state.favorites.push(car);
+        localStorage.setItem("favorites", JSON.stringify(state.favorites));
+      }
+    },
+    clearFavorites: (state) => {
+      state.favorites = [];
+      localStorage.setItem("favorites", JSON.stringify([]));
+    },
+
+    removeFromFavorites: (state, action) => {
+      const id = action.payload;
+      state.favorites = state.favorites.filter((item) => item.id !== id);
+      localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
   },
   extraReducers: (builder) => {
@@ -110,5 +131,12 @@ const carsSlice = createSlice({
   },
 });
 
-export const { resetCars, clearSelectedCar } = carsSlice.actions;
+export const {
+  resetCars,
+  clearSelectedCar,
+  addToFavorites,
+  removeFromFavorites,
+  clearFavorites,
+} = carsSlice.actions;
+
 export default carsSlice.reducer;
