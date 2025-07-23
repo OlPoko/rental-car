@@ -1,8 +1,7 @@
-// src/pages/CarDetailsPage.jsx
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCars } from "../redux/cars/carsSlice";
-import { useEffect, useState } from "react";
+import { fetchCarById } from "../redux/cars/carsSlice";
+import { useEffect } from "react";
 import BookingForm from "../components/BookingForm/BookingForm";
 import { formatKM } from "../utils/formatKM";
 import styles from "./CarDetailsPage.module.css";
@@ -10,22 +9,17 @@ import styles from "./CarDetailsPage.module.css";
 const CarDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const cars = useSelector((state) => state.cars.items);
-  const [car, setCar] = useState(null);
+
+  const car = useSelector((state) => state.cars.selectedCar);
+  const isLoading = useSelector((state) => state.cars.isLoading);
+  const error = useSelector((state) => state.cars.error);
 
   useEffect(() => {
-    if (cars.length === 0) {
-      dispatch(fetchCars()).then(({ payload }) => {
-        const found = payload.find((c) => c.id === id);
-        setCar(found || null);
-      });
-    } else {
-      const found = cars.find((c) => c.id === id);
-      setCar(found || null);
-    }
-  }, [cars, dispatch, id]);
+    dispatch(fetchCarById(id));
+  }, [dispatch, id]);
 
-  if (car === null) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   if (!car) return <p>Car not found.</p>;
 
   return (
