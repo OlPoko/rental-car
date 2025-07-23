@@ -1,13 +1,14 @@
 .page {
   padding: 40px 20px;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
 .title {
-  font-size: 32px;
+  font-size: 36px;
   margin-bottom: 24px;
   text-align: center;
+  color: #333;
 }
 
 .empty {
@@ -16,8 +17,34 @@
   color: #888;
 }
 
+.clearBtn {
+  background-color: #e63946;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 0 auto 32px;
+}
+
+.clearBtn:hover {
+  background-color: #d62828;
+}
+
+/* ❌ Прибираємо крапки зі списку */
 .list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
+  gap: 24px;
+}
+
+.cardItem {
+  margin: 0;
 }
