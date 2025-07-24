@@ -8,8 +8,16 @@ const Header = () => {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
+  // 🔹 Заборона скролу при відкритому меню
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") closeMenu();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [menuOpen]);
 
   return (
@@ -34,7 +42,11 @@ const Header = () => {
           >
             Catalog
           </NavLink>
-          <NavLink to="/favorites" className={styles.navLink}>
+          <NavLink
+            to="/favorites"
+            onClick={closeMenu}
+            className={styles.navLink}
+          >
             Favorites
           </NavLink>
         </nav>
@@ -42,6 +54,11 @@ const Header = () => {
         <button className={styles.burger} onClick={toggleMenu}>
           {menuOpen ? "✕" : "☰"}
         </button>
+
+        {/* 🔹 Бекдроп */}
+        {menuOpen && (
+          <div className={styles.backdrop} onClick={closeMenu}></div>
+        )}
       </div>
     </header>
   );
