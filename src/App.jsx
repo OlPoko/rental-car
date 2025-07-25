@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <Helmet>
         <title>Car Rental Service - Rent Your Perfect Ride</title>
-        <link rel="icon" href="/car-favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta
           name="description"
           content="Best car rental service. Wide selection of vehicles, easy booking, and affordable prices."
