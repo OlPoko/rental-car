@@ -41,14 +41,14 @@
 
 /* Назва авто + ID */
 .title {
-  font-size: 20px;
+  font-size: 32px;
   font-weight: 600;
   color: #111827;
   line-height: 1.2;
 }
 
 .carId {
-  font-size: 14px;
+  font-size: 20px;
   color: #9ca3af;
   font-weight: 400;
   margin-left: 8px;
@@ -56,7 +56,7 @@
 
 /* Локація + пробіг */
 .location {
-  font-size: 14px;
+  font-size: 20px;
   color: #6b7280;
 }
 
@@ -69,14 +69,14 @@
 
 /* Опис */
 .description {
-  font-size: 16px;
+  font-size: 20px;
   color: #374151;
   line-height: 1.5;
 }
 
 /* Заголовки блоків: Rental / Specs / Accessories */
 .sectionTitle {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   color: #111827;
   margin-top: 80px;
@@ -87,7 +87,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding-left: 16px;
+  padding-left: 20px;
   color: #374151;
   font-size: 15px;
   list-style: none;
@@ -116,18 +116,6 @@
   .booking {
     margin-top: 24px;
   }
-}
-
-.bookingTitle {
-  font-size: 18px;
-  font-weight: 600;
-  color: #111827;
-}
-
-.bookingSub {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 8px;
 }
 
 /* Поля та кнопка форми (переважно в BookingForm.module.css) */
