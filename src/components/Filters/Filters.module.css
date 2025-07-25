@@ -13,17 +13,20 @@
   flex: 1 1 100%;
 }
 .mileageGroup {
+  margin-left: 280px;
   display: flex;
   overflow: hidden;
   border-radius: 20px;
   background-color: #f3f4f6;
   border: 1px solid #e5e7eb;
-  width: 100%;
+  width: fit-content;
+  min-width: 240px;
+  max-width: 320px;
 }
 
 .mileageInput {
-  flex: 1 1 50%;
-  padding: 12px 16px;
+  width: 120px;
+  padding: 12px;
   font-size: 16px;
   border: none;
   background-color: transparent;
@@ -44,7 +47,7 @@
 .label {
   font-size: 14px;
   color: #6b7280;
-  margin-left: 4px;
+  margin-left: 290px;
 }
 
 /* input / select */

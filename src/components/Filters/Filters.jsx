@@ -1,9 +1,22 @@
-// src/components/Filters/Filters.jsx
 import { useState } from "react";
-import styles from "./Filters.module.css";
 import { toast } from "react-toastify";
+import styles from "./Filters.module.css";
+import CustomSelect from "../Filters/CustomSelect/CustomSelect"; // або вкажи правильний шлях
 
-const brands = ["BMW", "Audi", "Buick", "Subaru", "Volvo"];
+const brands = [
+  "Aston Martin",
+  "Audi",
+  "BMW",
+  "Bentley",
+  "Buick",
+  "Chevrolet",
+  "Chrysler",
+  "GMC",
+  "Hummer",
+  "Subaru",
+  "Volvo",
+];
+
 const prices = [30, 40, 50, 60, 70, 80];
 
 const Filters = ({ onApply }) => {
@@ -18,6 +31,7 @@ const Filters = ({ onApply }) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -68,39 +82,24 @@ const Filters = ({ onApply }) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.fieldGroup}>
-        <label className={styles.label}>Car brand</label>
-        <select
-          name="brand"
-          value={filters.brand}
-          onChange={handleChange}
-          className={styles.select}
-        >
-          <option value="">Choose a brand</option>
-          {brands.map((b) => (
-            <option key={b} value={b}>
-              {b}
-            </option>
-          ))}
-        </select>
-      </div>
+      <CustomSelect
+        label="Car brand"
+        options={brands}
+        value={filters.brand}
+        onChange={(val) => setFilters((prev) => ({ ...prev, brand: val }))}
+        placeholder="Choose a brand"
+      />
 
-      <div className={styles.fieldGroup}>
-        <label className={styles.label}>Price / 1 hour</label>
-        <select
-          name="rentalPrice"
-          value={filters.rentalPrice}
-          onChange={handleChange}
-          className={styles.select}
-        >
-          <option value="">Choose a price</option>
-          {prices.map((p) => (
-            <option key={p} value={p}>
-              To ${p}
-            </option>
-          ))}
-        </select>
-      </div>
+      <CustomSelect
+        label="Price / 1 hour"
+        options={prices.map((p) => `To $${p}`)}
+        value={filters.rentalPrice ? `To $${filters.rentalPrice}` : ""}
+        onChange={(val) => {
+          const number = val.replace(/\D/g, "");
+          setFilters((prev) => ({ ...prev, rentalPrice: number }));
+        }}
+        placeholder="Choose a price"
+      />
 
       <div className={styles.fieldGroup}>
         <label className={styles.label}>Car mileage / km</label>
