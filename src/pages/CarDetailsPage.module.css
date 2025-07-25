@@ -25,7 +25,7 @@
 /* ========== LEFT ========== */
 .image {
   width: 100%;
-  max-width: 500px;
+  max-width: 640px;
   border-radius: 24px;
   object-fit: cover;
 }
@@ -109,8 +109,7 @@
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  margin-top: 32px;
-  max-width: 488px;
+  margin-top: 20px;
 }
 
 @media (min-width: 768px) {

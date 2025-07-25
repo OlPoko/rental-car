@@ -28,11 +28,10 @@ const CarDetailsPage = () => {
         <div>
           <img className={styles.image} src={car.img} alt={car.make} />
           <div className={styles.booking}>
-            <p className={styles.bookingTitle}>Book your car now</p>
-            <p className={styles.bookingSub}>
-              Stay connected! We are always ready to help you.
-            </p>
-            <BookingForm carName={`${car.make} ${car.model}`} />
+            <BookingForm
+              carName={`${car.make} ${car.model}`}
+              withTitle={false}
+            />
           </div>
         </div>
 

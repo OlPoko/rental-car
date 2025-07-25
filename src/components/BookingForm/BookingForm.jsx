@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./BookingForm.module.css";
 import { useRef, useEffect } from "react";
 
-const BookingForm = ({ carName, withTitle = true }) => {
+const BookingForm = ({ carName }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -74,14 +74,10 @@ const BookingForm = ({ carName, withTitle = true }) => {
 
   return (
     <div className={styles.wrapper}>
-      {withTitle && (
-        <>
-          <h3 className={styles.title}>Book your car now</h3>
-          <p className={styles.subtitle}>
-            Stay connected! We are always ready to help you.
-          </p>
-        </>
-      )}
+      <h3 className={styles.title}>Book your car now</h3>
+      <p className={styles.subtitle}>
+        Stay connected! We are always ready to help you.
+      </p>
 
       <Formik
         initialValues={initialValues}

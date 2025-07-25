@@ -6,19 +6,19 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   color: #111827;
   margin: 0;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 20px;
   color: #6b7280;
   margin: 0;
 }
