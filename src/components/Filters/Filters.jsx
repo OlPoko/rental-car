@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import styles from "./Filters.module.css";
-import CustomSelect from "../Filters/CustomSelect/CustomSelect"; // або вкажи правильний шлях
+import CustomSelect from "./CustomSelect/CustomSelect"; // або вкажи правильний шлях
 
 const brands = [
   "Aston Martin",
